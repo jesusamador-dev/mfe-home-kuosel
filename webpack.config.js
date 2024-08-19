@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
+const deps = require('./package.json').dependencies;
 const dotenv = require('dotenv');
 
 // Cargar variables de entorno
@@ -12,18 +12,21 @@ const isProduction = process.env.NODE_ENV === 'production';
 const plugins = [
   new CleanWebpackPlugin(),
   new ModuleFederationPlugin({
-    name: 'host',
+    name: 'mfe_home_kuosel',
+    filename: 'remoteEntryHome.js',
     remotes: {
-      remote: `remote@${process.env.REMOTE_URL}/remoteEntry.js`,
+      mfe_ux_kuosel: `mfe_ux_kuosel@http://localhost:3000/kuosel/ux/v1/remoteEntryUx.js`,
     },
     shared: {
       react: {
         singleton: true,
-        requiredVersion: require('./package.json').dependencies.react,
+        eager: true,
+        requiredVersion:deps["react"],
       },
       'react-dom': {
         singleton: true,
-        requiredVersion: require('./package.json').dependencies['react-dom'],
+        eager: true,
+        requiredVersion: deps['react-dom'],
       },
     },
   }),
@@ -32,21 +35,13 @@ const plugins = [
   }),
 ];
 
-if (isProduction) {
-  plugins.push(
-    new InjectManifest({
-      swSrc: './src/service-worker.js', // Ruta al archivo fuente del service worker
-      swDest: 'service-worker.js', // Nombre del archivo destino del service worker
-    })
-  );
-}
-
 module.exports = {
-  entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    path: path.resolve(__dirname, 'dist/kuosel/home/v1/'),
+    publicPath: 'http://localhost:8081/kuosel/home/v1/',
+  },
+  performance: {
+    hints: false,
   },
   module: {
     rules: [
@@ -86,12 +81,17 @@ module.exports = {
   },
   plugins: plugins,
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
     port: process.env.PORT,
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: `index.html`,
+    },
+    allowedHosts: 'all',
+    hot: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+    },
   },
   mode: isProduction ? 'production' : 'development',
 };

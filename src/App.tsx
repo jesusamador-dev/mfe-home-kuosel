@@ -1,11 +1,13 @@
 import React from 'react';
+import MainRouter from '@/presentation/routes/router';
+import { createRoot } from "react-dom/client";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Hola Mundo</h1>
-    </div>
+    <MainRouter></MainRouter>
   );
 };
 
-export default App;
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(<App />);
