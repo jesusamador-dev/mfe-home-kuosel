@@ -17,6 +17,9 @@ const plugins = [
     remotes: {
       mfe_ux_kuosel: `mfe_ux_kuosel@http://localhost:3000/kuosel/ux/v1/remoteEntryUx.js`,
     },
+    exposes: {
+      './router/HomeRouter': './src/presentation/routes/Router.tsx'
+    },
     shared: {
       react: {
         singleton: true,

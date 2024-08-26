@@ -1,10 +1,10 @@
 import React from 'react';
-import MainRouter from '@/presentation/routes/router';
+import HomeRouter from '@/presentation/routes/Router';
 import { createRoot } from "react-dom/client";
 
 const App: React.FC = () => {
   return (
-    <MainRouter></MainRouter>
+    <></>
   );
 };
 

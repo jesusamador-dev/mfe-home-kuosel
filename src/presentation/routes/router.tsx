@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
 import HomePage from '@/presentation/pages/HomePage/HomePage';
 
-const MainRouter: React.FC = () => {
+const HomeRouter: React.FC = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/kuosel/home/v1/" element={<HomePage />} />
+          <Route path='/' element={<HomePage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
-export default MainRouter;
+export default HomeRouter;
