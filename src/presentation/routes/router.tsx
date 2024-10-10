@@ -1,14 +1,15 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
+import {Routes, Route, Outlet} from 'react-router-dom';
 import HomePage from '@/presentation/pages/HomePage/HomePage';
+import HomeLayout from 'mfe_ux_kuosel/layouts/HomeLayout';
 
 const HomeRouter: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-          <Route path='/' element={<HomePage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<HomeLayout />}>
+        <Route path='/' element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 };
 

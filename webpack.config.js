@@ -21,6 +21,7 @@ const plugins = [
       './router/HomeRouter': './src/presentation/routes/Router.tsx'
     },
     shared: {
+      ...deps,
       react: {
         singleton: true,
         eager: true,
@@ -30,6 +31,11 @@ const plugins = [
         singleton: true,
         eager: true,
         requiredVersion: deps['react-dom'],
+      },
+      'react-router-dom': {
+        singleton: true,
+        requiredVersion: deps['react-router-dom'],
+        eager: true
       },
     },
   }),
