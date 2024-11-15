@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import KSLIcon from 'mfe_ux_kuosel/atoms/KSLIcon';
 import KSLCategoryCarousel from 'mfe_ux_kuosel/organisms/KSLCategoryCarousel';
 import KSLTransactionCard from 'mfe_ux_kuosel/molecules/KSLTransactionCard';
-import KSLBottomNavBar from 'mfe_ux_kuosel/organisms/KSLBottomNavBar';
+import KSLDonutChart from 'mfe_ux_kuosel/molecules/KSLDonutChart';
 
 const HomePage: React.FC = () => {
   return (
@@ -12,11 +10,31 @@ const HomePage: React.FC = () => {
         <div>
           <p className='text-gray-500 text-sm'>Planned Expenses</p>
           <p className='text-black text-2xl font-bold'>$5,570.00</p>
-          <div className='mt-2 py-1 px-3 bg-white text-gray-500 rounded-lg'>
-            $50 Left to budget
+          <div className='mt-2 py-1 px-3 bg-white text-gray-500 rounded-lg'>$50 Left to budget</div>
+        </div>
+        <div className='ml-8'>
+          <div style={{width: '200px', height: '250px'}}>
+            <KSLDonutChart
+              data={[
+                {
+                  value: 570,
+                  name: 'Housing',
+                  itemStyle: {borderRadius: [10, 10, 0, 0], color: '#FF6B6B'},
+                },
+                {
+                  value: 240,
+                  name: 'Food',
+                  itemStyle: {borderRadius: [10, 10, 0, 0], color: '#845EC2'},
+                },
+                {
+                  value: 190,
+                  name: 'Savings',
+                  itemStyle: {borderRadius: [10, 10, 0, 0], color: '#98D8D8'},
+                },
+              ]}
+            ></KSLDonutChart>
           </div>
         </div>
-        <div className='ml-8'></div>
       </div>
       <div>
         <KSLCategoryCarousel
